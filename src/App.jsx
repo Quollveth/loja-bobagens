@@ -1,9 +1,16 @@
-import IconReact from "./components/lib/IconReact";
+import ImageComponent from "./components/ImageComponent";
 import IconBrandFacebook from "./components/lib/IconBrandFacebook";
 import IconBrandInstagram from "./components/lib/IconBrandInstagram";
 import IconBrandTwitter from "./components/lib/IconBrandTwitter";
+import SearchBar from "./components/SearchBar";
 
 function App() {
+  const logoProps = {
+    height: 100,
+    width: 200,
+    src: "./src/imgs/logo.png",
+    alt: "logo"
+  }
   return (
   <>
 
@@ -22,8 +29,8 @@ function App() {
       </nav>
     </nav>
     <nav id="topbarBtm" className="Navbar topbar container mx-auto flex flex-start justify-between">
-      <a href="/"> <IconReact/></a>
-      <a href="#" className="px-4 py-2">SEARCH</a>
+      <a href="/"> <ImageComponent {...logoProps}/></a>
+      <SearchBar width={650} height={50}/>
       <a href="#" className="px-4 py-2">CART</a>
     </nav>
   </header>
