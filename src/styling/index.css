@@ -7,3 +7,10 @@
   color: rgba(255, 255, 255, 0.87);
   background-color: #242424;
 }
+
+.separator {
+  width: 1px;
+  height: 12px; /* altura */
+  background-color: #ccc;
+  margin: 0 8px; /* espaço entre a barra e os itens */
+}
