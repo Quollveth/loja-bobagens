@@ -4,7 +4,9 @@ import ImageComponent from "./components/ImageComponent";
 import IconBrandFacebook from "./components/lib/IconBrandFacebook";
 import IconBrandInstagram from "./components/lib/IconBrandInstagram";
 import IconBrandTwitter from "./components/lib/IconBrandTwitter";
+
 import SearchBar from "./components/SearchBar";
+import CartMenu from "./components/CartMenu";
 
 function App() {
   const [searchWidth, setSearchWidth] = useState(1000);
@@ -23,6 +25,10 @@ function App() {
       alt: "cart"
     }
   }
+
+  const cart = (
+    <ImageComponent {...imgProps["cart"]}/>
+  );
 
   return (
   <>
@@ -45,10 +51,10 @@ function App() {
     <nav id="topbarBtm" className="py-3 pr-10 Navbar topbar container mx-auto flex flex-start justify-between">
       <a href="/" className="place-self-start"><ImageComponent {...imgProps["logo"]}/></a>
       <SearchBar width={searchWidth} height={40} />
-      <button className="CartWrapper h-max w-max place-self-center mb-5">
-        <ImageComponent {...imgProps["cart"]}/>
-      </button>
-    </nav>
+      <div className="CartWrapper h-max w-max place-self-center mb-5">
+        <CartMenu button={cart}/>
+      </div>
+    </nav>    
   </header>
   </>
   );
