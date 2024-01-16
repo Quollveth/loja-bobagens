@@ -1,13 +1,20 @@
 import { Popover, Transition } from "@headlessui/react";
-import { Fragment, useRef } from "react";
+import { Fragment, useEffect, useRef, useState } from "react";
+import { usePopper } from 'react-popper';
+import "./CartMenu.css"
 
 export default function CartMenu(props) {
-  const ButtonRef = useRef(null);
   const timeoutDuration = 200;
   let timeout;
 
+  let buttonRef = useRef(null);
+
+  let [popperElement, setPopperElement] = useState();
+  let [referenceElement, setReferenceElement] = useState();
+  let { styles, attributes } = usePopper(referenceElement, popperElement);
+
   const closePopover = () => {
-    return ButtonRef.current?.dispatchEvent(
+    return buttonRef.current?.dispatchEvent(
       new KeyboardEvent("keydown", {
         key: "Escape",
         bubbles: true,
@@ -19,7 +26,7 @@ export default function CartMenu(props) {
   const onMouseEnter = (open) => {
     clearTimeout(timeout)
     if (open) return;
-    return ButtonRef.current?.click();
+    return buttonRef.current?.click();
   };
 
   const onMouseLeave = (open) => {
@@ -36,13 +43,14 @@ export default function CartMenu(props) {
               <div onMouseLeave={onMouseLeave.bind(null, open)}>
                 <Popover.Button
                   id="CartButton"
-                  ref={ButtonRef}
+                  ref={buttonRef}
                   className={`
                   ${open ? "" : "text-opacity-90"}`}
                   onMouseEnter={onMouseEnter.bind(null, open)}
                   onMouseLeave={onMouseLeave.bind(null, open)}
                 >
                   {props.button}
+                  <div ref={setReferenceElement}/>
                 </Popover.Button>
                 <Transition
                   as={Fragment}
@@ -55,6 +63,9 @@ export default function CartMenu(props) {
                 >
                   <Popover.Panel 
                     id="CartMenu"
+                    ref={setPopperElement}
+                    style={styles.popper}
+                    {...attributes.popper}
                     className="absolute"
                     >
                     <div
@@ -63,8 +74,9 @@ export default function CartMenu(props) {
                       onMouseLeave={onMouseLeave.bind(null, open)}
                     >
                         <div id="CartArrow"/>
-                        <div className="relative grid gap-8 bg-white p-7 lg:grid-cols-2">
+                        <div id="CartContainer">
                         {/* CONTENT HERE */}
+                        <span className="text-black">Carrinho vazio</span>
                         </div>
                     </div>
                   </Popover.Panel>
